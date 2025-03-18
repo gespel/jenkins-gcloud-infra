@@ -6,9 +6,9 @@ provider "google" {
 
 resource "google_compute_instance" "srv1" {
   count        = 1
-  name         = "workersrv1"
-  machine_type = "e2-standard-2"
-  zone         = "europe-west10-a"
+  name         = var.instance_name
+  machine_type = var.machine_type
+  zone         = var.gcloud_zone
 
   scheduling {
     preemptible       = true
@@ -25,7 +25,7 @@ resource "google_compute_instance" "srv1" {
     network = "default"
   }
   service_account {
-    email  = "image-puller@gp-dssi.iam.gserviceaccount.com"
+    email  = var.gcloud_service_accout
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 
